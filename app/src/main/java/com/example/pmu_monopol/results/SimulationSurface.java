@@ -12,15 +12,22 @@ import android.os.Looper;
 import android.view.Display;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 
 import com.example.pmu_monopol.R;
 import com.example.pmu_monopol.data.GameStep;
 import com.example.pmu_monopol.data.MyData;
 import com.example.pmu_monopol.gameplay.DataViewModel;
+import com.example.pmu_monopol.gameplay.GamePlayFragmentDirections;
 import com.example.pmu_monopol.gameplay.GamePlayLayout;
 import com.example.pmu_monopol.gameplay.GameStepViewModle;
 
@@ -59,6 +66,7 @@ public class SimulationSurface<privtae> extends SurfaceView {
     int positions[];
     GameStep currentGameStep;
     int pomPos=0;
+    public NavController navController;
 
     public SimulationSurface(Context context,DataViewModel game, GameStepViewModle stepsVM, int idGame) {
         super(context);
@@ -105,7 +113,7 @@ public class SimulationSurface<privtae> extends SurfaceView {
                             onDraw(canvas);
                             holder.unlockCanvasAndPost(canvas);
 
-                            Thread.sleep(500);
+                            Thread.sleep(100);
 
                         }
                     } catch (ExecutionException e) {
@@ -224,6 +232,8 @@ public class SimulationSurface<privtae> extends SurfaceView {
         canvas.drawColor(0, PorterDuff.Mode.CLEAR);
         int x = (display.getWidth()/2);
 
+
+
         canvas.drawBitmap(background,(0),(0),null);
 //        canvas.drawBitmap(icon1,(display.getWidth()/12)*10,0,null);
 //        canvas.drawBitmap(icon2, (display.getWidth() / 12) * 10, (display.getHeight() / 12) * 10, null);
@@ -251,7 +261,10 @@ public class SimulationSurface<privtae> extends SurfaceView {
                     Handler uiThreadHandler = new Handler(Looper.getMainLooper());
                     uiThreadHandler.post(()->{
                         Toast.makeText(getContext().getApplicationContext(), "Gotova simulacija, pobedio je "+gameData.getWinner(),Toast.LENGTH_SHORT).show();
+                        NavDirections action= SimulationFragmentDirections.actionSimulationFragmentPop();
+                        navController.navigate(action);
                     });
+
                     finished=true;
                 }
             }else{

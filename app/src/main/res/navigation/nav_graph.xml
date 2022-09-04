@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainMenuFragment">
+    <fragment
+        android:id="@+id/mainMenuFragment"
+        android:name="com.example.pmu_monopol.MainMenu.MainMenuFragment"
+        android:label="fragment_main_menu"
+        tools:layout="@layout/fragment_main_menu" >
+        <action
+            android:id="@+id/action_show_gamePlayFragment"
+            app:destination="@id/gamePlayFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_resultsFragment"
+            app:destination="@id/resultsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gamePlayFragment"
+        android:name="com.example.pmu_monopol.gameplay.GamePlayFragment"
+        android:label="fragment_game_play"
+        tools:layout="@layout/fragment_game_play" >
+        <argument
+            android:name="gameName"
+            android:defaultValue="0"
+            app:argType="string" />
+        <argument
+            android:name="gameId"
+            android:defaultValue="0"
+            app:argType="integer"
+            />
+        <action
+            android:id="@+id/action_gamePlayFragment_pop"
+            app:popUpTo="@id/gamePlayFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultsFragment"
+        android:name="com.example.pmu_monopol.results.ResultsFragment"
+        android:label="fragment_results"
+        tools:layout="@layout/fragment_results" >
+
+        <action
+            android:id="@+id/action_resultsFragment_to_simulationFragment"
+            app:destination="@id/simulationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/simulationFragment"
+        android:name="com.example.pmu_monopol.results.SimulationFragment"
+        android:label="fragment_simulation"
+        tools:layout="@layout/fragment_simulation" >
+        <argument
+            android:name="idGame"
+            android:defaultValue="0"
+            app:argType="integer"
+            />
+        <action
+            android:id="@+id/action_simulationFragment_pop"
+            app:popUpTo="@id/simulationFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>
